@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">手势识别与唤醒技术</string>
+    <string name="gestures_loading">载入手势集...</string>
+    <string name="gesture_add_button">增加</string>
+    <string name="gesture_add_reload">重载</string>
+    <string name="gesture_add_perform">验证</string>
+    <string name="gesture_name">名称</string>
+    <string name="comfrim_button">确认</string>
+    <string name="discard_button">取消</string>
+    <string name="error_missing_name">请输入名称！</string>
+    <string name="save_success">手势保存于 %s</string>
+    <string name="gestures_empty">空</string>
+    <string name="gesture_delete_success">手势删除成功</string>
+    <string name="gesture_rename_title">重命名手势</string>
+    <string name="gesture_rename">重命名</string>
+    <string name="gesture_delete">删除</string>
+    <string name="gesture_rename_label">手势名称</string>
+    <string name="cancel_action">取消</string>
+    <string name="rename_action">确定</string>
+    <string name="gestures_error_loading">不能加载 %s. 请确保手势库有效.</string>
+</resources>

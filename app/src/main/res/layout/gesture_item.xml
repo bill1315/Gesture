@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:Android="http://schemas.android.com/apk/res/android"
+          Android:id="@+id/gesture_item"
+          Android:layout_width="match_parent"
+          Android:layout_height="wrap_content"
+          Android:gravity="center_vertical"
+          Android:minHeight="?android:attr/listPreferredItemHeight"
+          Android:drawablePadding="12dp"
+          Android:paddingLeft="6dp"
+          Android:paddingRight="6dp"
+          Android:ellipsize="marquee"
+          Android:maxLines="1"
+          Android:textAppearance="?android:attr/textAppearanceLarge"/>
