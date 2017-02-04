@@ -18,10 +18,6 @@ import java.io.File;
 import cn.edu.nuaa.gesture.R;
 import cn.edu.nuaa.gesture.utils.Global;
 
-/**
- * Created by terry on 2017/1/23.
- */
-
 public class GestureAddActivity extends Activity {
     private static final float LENGTH_THRESHOLD = 120.0f;
     private static final String GESTURE = "gesture";
@@ -50,6 +46,7 @@ public class GestureAddActivity extends Activity {
                     CharSequence editText=mEditName.getText();
                     if(editText.length()==0){
                         mEditName.setError(getString(R.string.error_missing_name));
+                        return;
                     }
                     /**
                      * 获取手势库

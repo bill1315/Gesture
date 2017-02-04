@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">手势识别与唤醒技术</string>
-    <string name="gestures_loading">载入手势集...</string>
+    <string name="gestures_loading">载入手势集</string>
     <string name="gesture_add_button">增加</string>
     <string name="gesture_add_reload">重载</string>
     <string name="gesture_add_perform">验证</string>
@@ -18,4 +18,7 @@
     <string name="cancel_action">取消</string>
     <string name="rename_action">确定</string>
     <string name="gestures_error_loading">不能加载 %s. 请确保手势库有效.</string>
+    <string name="no_match_gesture">没有匹配的手势</string>
+    <string name="load_gesture_success">手势文件已经装载</string>
+    <string name="load_gesture_failed">手势文件装载失败</string>
 </resources>
