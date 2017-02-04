@@ -17,7 +17,9 @@ import java.io.File;
 
 import cn.edu.nuaa.gesture.R;
 import cn.edu.nuaa.gesture.utils.Global;
-
+/**
+ * Created by terry on 2017/1/23.
+ */
 public class GestureAddActivity extends Activity {
     private static final float LENGTH_THRESHOLD = 120.0f;
     private static final String GESTURE = "gesture";
@@ -30,7 +32,7 @@ public class GestureAddActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gesture_add);
-        GestureOverlayView mOverlay=(GestureOverlayView)findViewById(R.id.gesture_overlay);
+        GestureOverlayView mOverlay=(GestureOverlayView)findViewById(R.id.gesture_overlay_set);
         mOverlay.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE); //设置手势可多笔画绘制，默认情况为单笔画绘制
         mOverlay.setFadeOffset(2000);//多笔画两次的间隔时间,默认值为420毫秒
         mOverlay.setGestureColor(Color.BLACK);//画笔颜色
@@ -89,7 +91,7 @@ public class GestureAddActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         mGesture=savedInstanceState.getParcelable(GESTURE);
         if(null!=mGesture){
-            final GestureOverlayView mGestureOverlayView=(GestureOverlayView)findViewById(R.id.gesture_overlay);
+            final GestureOverlayView mGestureOverlayView=(GestureOverlayView)findViewById(R.id.gesture_overlay_set);
             mGestureOverlayView.post(new Runnable() {
                 @Override
                 public void run() {

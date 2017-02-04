@@ -14,16 +14,18 @@ import java.util.ArrayList;
 
 import cn.edu.nuaa.gesture.R;
 import cn.edu.nuaa.gesture.utils.Global;
-
+/**
+ * Created by terry on 2017/1/23.
+ */
 public class GestureRecognizeActivity extends Activity {
 
-    GestureLibrary mGestureLibrary;
+    GestureLibrary mGestureLibrary;// 手势库
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gesture_recognize);
 
-        GestureOverlayView gestureOverlayView=(GestureOverlayView)findViewById(R.id.gestures_overlay);
+        GestureOverlayView gestureOverlayView=(GestureOverlayView)findViewById(R.id.gestures_overlay);// 手势画板
         gestureOverlayView.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);
         gestureOverlayView.setFadeOffset(2000);
         gestureOverlayView.setGestureColor(Color.BLACK);
