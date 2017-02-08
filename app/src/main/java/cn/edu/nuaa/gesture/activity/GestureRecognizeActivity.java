@@ -25,7 +25,7 @@ public class GestureRecognizeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gesture_recognize);
 
-        GestureOverlayView gestureOverlayView=(GestureOverlayView)findViewById(R.id.gestures_overlay);// 手势画板
+        GestureOverlayView gestureOverlayView=(GestureOverlayView)findViewById(R.id.gestures_overlay);//手势画板
         gestureOverlayView.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);
         gestureOverlayView.setFadeOffset(2000);
         gestureOverlayView.setGestureColor(Color.BLACK);
