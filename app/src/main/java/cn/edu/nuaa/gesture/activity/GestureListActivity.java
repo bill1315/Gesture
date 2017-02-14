@@ -81,7 +81,7 @@ public class GestureListActivity extends ListActivity{
         if(null==sStore){
             sStore= GestureLibraries.fromFile(Global.mStoreFile);
         }
-        mEmpty=(TextView)findViewById(R.id.loadlist_show);//listView加载文字描述
+        mEmpty=(TextView)findViewById(R.id.empty);//listView加载文字描述
         //手势加载
         loadGestures();
         //注册长按点击事件
@@ -112,8 +112,6 @@ public class GestureListActivity extends ListActivity{
                 startActivity(intent);
             }
         });
-        //菜单弹出框
-        //showDialog();
     }
 
     static GestureLibrary getStore() {
@@ -239,21 +237,6 @@ public class GestureListActivity extends ListActivity{
         );
         builder.setView(layout);
         return builder.create();
-    }
-
-    /**public void showDialog() {
-        DialogFragment newFragment = RenameDialog.newInstance(getString(R.string.gesture_rename_title));
-        newFragment.show(getFragmentManager(), "dialog");
-    }**/
-
-    public void doPositiveClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Positive click!");
-    }
-
-    public void doNegativeClick() {
-        // Do stuff here.
-        Log.i("FragmentAlertDialog", "Negative click!");
     }
 
     private void changeGestureName() {

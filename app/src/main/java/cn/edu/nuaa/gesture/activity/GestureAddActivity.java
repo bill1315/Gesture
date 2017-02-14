@@ -35,7 +35,8 @@ public class GestureAddActivity extends Activity {
         GestureOverlayView mOverlay=(GestureOverlayView)findViewById(R.id.gesture_overlay_set);
         mOverlay.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE); //设置手势可多笔画绘制，默认情况为单笔画绘制
         mOverlay.setFadeOffset(2000);//多笔画两次的间隔时间,默认值为420毫秒
-        mOverlay.setGestureColor(Color.BLACK);//画笔颜色
+        mOverlay.setGestureColor(Color.BLACK);// 设置手势绘制颜色
+        mOverlay.setUncertainGestureColor(Color.GREEN);//设置还未形成的手势颜色
         mOverlay.setGestureStrokeWidth(8);//画笔粗细值
         mOverlay.addOnGestureListener(new GestureProcessor());
 
