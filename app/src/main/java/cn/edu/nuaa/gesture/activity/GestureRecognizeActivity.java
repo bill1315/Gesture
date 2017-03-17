@@ -26,19 +26,23 @@ public class GestureRecognizeActivity extends Activity {
         setContentView(R.layout.gesture_recognize);
 
         GestureOverlayView gestureOverlayView=(GestureOverlayView)findViewById(R.id.gestures_overlay);//手势画板
-        gestureOverlayView.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_MULTIPLE);
+        gestureOverlayView.setGestureStrokeType(GestureOverlayView.GESTURE_STROKE_TYPE_SINGLE);
         gestureOverlayView.setFadeOffset(2000);
         gestureOverlayView.setGestureColor(Color.BLACK);
         gestureOverlayView.setGestureStrokeWidth(8);
+        if(null==mGestureLibrary){
+            mGestureLibrary= GestureLibraries.fromFile(Global.mStoreFile);
+            mGestureLibrary.load();
+        }
+        //判断手势库是否加载
+        if (mGestureLibrary.load()) {
+         Toast.makeText(GestureRecognizeActivity.this, R.string.load_gesture_success, Toast.LENGTH_SHORT).show();
+         }else{
+         Toast.makeText(GestureRecognizeActivity.this, R.string.load_gesture_failed, Toast.LENGTH_SHORT).show();
+         }
         gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
             @Override
             public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-                //判断手势库是否加载
-                /**if (mGestureLibrary.load()) {
-                    Toast.makeText(GestureRecognizeActivity.this, R.string.load_gesture_success, Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(GestureRecognizeActivity.this, R.string.load_gesture_failed, Toast.LENGTH_SHORT).show();
-                }**/
                 // 从手势库中查询匹配的内容，匹配的结果可能包括多个相似的结果，匹配度高的结果放在最前面
                 ArrayList<Prediction> predictions=mGestureLibrary.recognize(gesture);
                 if(null!=predictions&&predictions.size()>0){
@@ -52,9 +56,5 @@ public class GestureRecognizeActivity extends Activity {
                 }
             }
         });
-        if(null==mGestureLibrary){
-            mGestureLibrary= GestureLibraries.fromFile(Global.mStoreFile);
-            mGestureLibrary.load();
-        }
     }
 }

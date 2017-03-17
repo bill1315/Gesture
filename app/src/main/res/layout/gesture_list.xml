@@ -43,5 +43,11 @@
             android:layout_weight="1"
             android:id="@+id/gesture_button_perform"
             android:text="@string/gesture_add_perform"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/app_to_main"
+            android:text="@string/return_main"/>
     </LinearLayout>
 </LinearLayout>

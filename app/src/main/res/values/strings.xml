@@ -21,4 +21,12 @@
     <string name="no_match_gesture">没有匹配的手势</string>
     <string name="load_gesture_success">手势文件已经装载</string>
     <string name="load_gesture_failed">手势文件装载失败</string>
+    <string name="safeSet">安全手势设置</string>
+    <string name="appSet">应用程序关联设置</string>
+    <string name="return_main">返回</string>
+    <string name="title_activity_link_app">LinkAppActivity</string>
+    <string name="app_list_page">应用程序手势列表页面</string>
+    <string name="app_link_page">应用程序关联设置</string>
+    <string name="app_link_success">应用程序关联成功</string>
+    <string name="app_link_canel">应用程序关联取消</string>
 </resources>

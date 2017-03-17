@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,6 +83,7 @@ public class GestureListActivity extends ListActivity{
             sStore= GestureLibraries.fromFile(Global.mStoreFile);
         }
         mEmpty=(TextView)findViewById(R.id.empty);//listView加载文字描述
+
         //手势加载
         loadGestures();
         //注册长按点击事件
@@ -109,6 +111,15 @@ public class GestureListActivity extends ListActivity{
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(GestureListActivity.this,GestureRecognizeActivity.class);
+                startActivity(intent);
+            }
+        });
+        //返回主页
+        Button mAppToMain=(Button)findViewById(R.id.app_to_main);
+        mAppToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(GestureListActivity.this,MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -175,6 +186,20 @@ public class GestureListActivity extends ListActivity{
         //菜单列表
         menu.add(0, MENU_ID_RENAME, 0, R.string.gesture_rename);
         menu.add(0, MENU_ID_REMOVE, 0, R.string.gesture_delete);
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id)  {
+        // TODO Auto-generated method stub
+        Log.e("position", "" + position);
+       // setTitle("你点击第"+position+"行");
+        NamedGesture namedGesture= (NamedGesture) getListAdapter().getItem(position);
+        Intent intent=new Intent(this,LinkAppActivity.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putParcelable("selectedObject", namedGesture);
+        mBundle.putBoolean("isLink",true);
+        intent.putExtras(mBundle);
+        startActivity(intent);
     }
 
     @Override
@@ -317,9 +342,9 @@ public class GestureListActivity extends ListActivity{
 
 
     private class GesturesLoadTask extends AsyncTask<Void,NamedGesture,Integer>{
-        private int mThumbnailSize;
-        private int mThumbnailInset;
-        private int mPathColor;
+        private int mThumbnailSize;  // 宽度、高度
+        private int mThumbnailInset;// 密度
+        private int mPathColor;// 颜色
 
         @Override
         protected void onPreExecute() {
@@ -348,7 +373,7 @@ public class GestureListActivity extends ListActivity{
                     if (isCancelled()) break;
 
                     for (Gesture gesture : store.getGestures(name)) {
-                        final Bitmap bitmap = gesture.toBitmap(mThumbnailSize, mThumbnailSize, mThumbnailInset, mPathColor);
+                        final Bitmap bitmap = gesture.toBitmap(mThumbnailSize, mThumbnailSize, mThumbnailInset, mPathColor);//将手势转换为图片
                         final NamedGesture namedGesture = new NamedGesture();
                         namedGesture.setGesture(gesture);
                         namedGesture.setName(name);
