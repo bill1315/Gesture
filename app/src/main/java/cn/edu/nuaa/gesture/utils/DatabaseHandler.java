@@ -59,7 +59,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     public GestureLinked getGestureLink(String name){
         SQLiteDatabase db=this.getWritableDatabase();
-
         //Cursor对象返回查询结果
         Cursor cursor=db.query(TABLE_NAME,new String[]{KEY_ID,KEY_APPNAME,KEY_PACKAGENAME,KEY_GESTURENAME,KEY_TYPE},
                 KEY_GESTURENAME+"=?",new String[]{name},null,null,null,null);
