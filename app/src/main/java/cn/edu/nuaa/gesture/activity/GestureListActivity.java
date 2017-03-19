@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -40,7 +41,9 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.edu.nuaa.gesture.R;
+import cn.edu.nuaa.gesture.model.GestureLinked;
 import cn.edu.nuaa.gesture.model.NamedGesture;
+import cn.edu.nuaa.gesture.utils.DatabaseHandler;
 import cn.edu.nuaa.gesture.utils.Global;
 
 /**
@@ -64,7 +67,7 @@ public class GestureListActivity extends ListActivity{
     private NamedGesture mCurrentRenameGesture;
     private static final String GESTURES_INFO_ID = "gestures.info_id";
     private Dialog mRenameDialog;
-
+    private DatabaseHandler dbHandler;
 
     private final Comparator<NamedGesture> mSorter = new Comparator<NamedGesture>() {
         public int compare(NamedGesture object1, NamedGesture object2) {
@@ -76,6 +79,7 @@ public class GestureListActivity extends ListActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gesture_list);
+        dbHandler=new DatabaseHandler(this);
         //listView加载
         mGesturesAdapter=new GesturesAdapter(this);
         setListAdapter(mGesturesAdapter);
@@ -152,6 +156,12 @@ public class GestureListActivity extends ListActivity{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        loadGestures();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         if(null!=mCurrentRenameGesture){
             outState.putLong(GESTURES_INFO_ID,mCurrentRenameGesture.getGesture().getID());
@@ -198,6 +208,7 @@ public class GestureListActivity extends ListActivity{
         Bundle mBundle = new Bundle();
         mBundle.putParcelable("selectedObject", namedGesture);
         mBundle.putBoolean("isLink",true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
         intent.putExtras(mBundle);
         startActivity(intent);
     }
@@ -435,9 +446,15 @@ public class GestureListActivity extends ListActivity{
                 convertView=mLayoutInflater.inflate(R.layout.gesture_item,parent,false);
             }
             NamedGesture namedGesture=getItem(position);
+            //取表信息
+            GestureLinked gestureLinked = dbHandler.getGestureLink(namedGesture.getName());
             TextView textView=(TextView)convertView;
             textView.setTag(namedGesture);
-            textView.setText(namedGesture.getName());
+            if(null!=gestureLinked) {
+                textView.setText(namedGesture.getName()+" --- "+ Html.fromHtml("<font size='8'>"+gestureLinked.getAppName()+"</font>"));
+            }else{
+                textView.setText(namedGesture.getName());
+            }
             textView.setCompoundDrawablesWithIntrinsicBounds(mThumbnails.get(namedGesture.getGesture().getID()),null,null,null);
             return convertView;
         }
