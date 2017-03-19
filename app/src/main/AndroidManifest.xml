@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
 
     <application
         android:allowBackup="true"
@@ -27,8 +28,10 @@
         </activity>
         <activity android:name=".activity.GestureListActivity"
             android:label="@string/app_list_page"/>
-        <activity android:name=".activity.GestureAddActivity"/>
-        <activity android:name=".activity.GestureRecognizeActivity"/>
+        <activity android:name=".activity.GestureAddActivity"
+                  android:label="@string/gesture_add_page"/>
+        <activity android:name=".activity.GestureRecognizeActivity"
+                  android:label="@string/gesture_add_perform"/>
         <activity android:name=".activity.LinkAppActivity"
             android:label="@string/app_link_page">
         </activity>

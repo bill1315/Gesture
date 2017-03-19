@@ -29,4 +29,5 @@
     <string name="app_link_page">应用程序关联设置</string>
     <string name="app_link_success">应用程序关联成功</string>
     <string name="app_link_canel">应用程序关联取消</string>
+    <string name="gesture_add_page">应用程序手势新增页面</string>
 </resources>
