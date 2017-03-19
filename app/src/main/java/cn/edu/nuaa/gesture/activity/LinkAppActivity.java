@@ -231,7 +231,6 @@ public class LinkAppActivity extends AppCompatActivity {
             return position;
         }
 
-
         public View getView(final int position, View convertView, ViewGroup parent) {
             final AppInfo info = appList.get(position);
             ViewHolder holder = null;
