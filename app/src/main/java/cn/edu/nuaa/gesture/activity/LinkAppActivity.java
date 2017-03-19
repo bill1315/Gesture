@@ -55,6 +55,7 @@ public class LinkAppActivity extends AppCompatActivity {
     private Map<Integer, Boolean> isSelected;
     private List beSelectedData = new ArrayList();
     private String gestureName;
+    private String appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,9 @@ public class LinkAppActivity extends AppCompatActivity {
         gestureName=namedGesture.getName();
         TextView mLinkShow= (TextView) findViewById(R.id.app_gesture_name);
         mLinkShow.setText(gestureName);
+        //查询表信息
+        GestureLinked gestureLink=dbHandler.getGestureLink(gestureName);
+        appName=gestureLink.getAppName();
         Switch mLinkSwitch= (Switch) findViewById(R.id.link_switch);
 
         pm = getPackageManager();
@@ -195,7 +199,11 @@ public class LinkAppActivity extends AppCompatActivity {
                 appInfos.add(application);
             }
             for (int i = 0; i < appInfos.size(); i++) {
-                isSelected.put(i, false);
+                if(appName.equals(appInfos.get(i).title)) {
+                    isSelected.put(i, true);
+                }else{
+                    isSelected.put(i,false);
+                }
             }
         }
     }
