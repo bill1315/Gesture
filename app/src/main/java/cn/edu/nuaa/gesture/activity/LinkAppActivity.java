@@ -56,6 +56,8 @@ public class LinkAppActivity extends AppCompatActivity {
     private List beSelectedData = new ArrayList();
     private String gestureName;
     private String appName;
+    //private CheckBox app_isChecked;
+    private Boolean mIsLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class LinkAppActivity extends AppCompatActivity {
         //Getting the Bundle object that pass from another activity
         Bundle bundle = getIntent().getExtras();
         NamedGesture namedGesture = (NamedGesture)bundle.getParcelable("selectedObject");
-        Boolean mIsLink=bundle.getBoolean("isLink");
+        mIsLink=bundle.getBoolean("isLink");
         //Toast.makeText(this,namedGesture.getName(),Toast.LENGTH_LONG).show();
         gestureName=namedGesture.getName();
         TextView mLinkShow= (TextView) findViewById(R.id.app_gesture_name);
@@ -79,15 +81,17 @@ public class LinkAppActivity extends AppCompatActivity {
 
         pm = getPackageManager();
         lv_app = (ListView) findViewById(R.id.app_list_view);
-
+        //app_isChecked=(CheckBox) findViewById(R.id.lv_app_checked);
         if(mIsLink){
             mLinkSwitch.setChecked(true);
             lv_app.setEnabled(true);
             lv_app.getBackground().setAlpha(255);
+            //app_isChecked.setEnabled(true);
         }else{
             mLinkSwitch.setChecked(false);
             lv_app.setEnabled(false);
             lv_app.getBackground().setAlpha(100);
+            //app_isChecked.setEnabled(false);
         }
         mLinkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -95,9 +99,13 @@ public class LinkAppActivity extends AppCompatActivity {
                 if (isChecked) {
                     lv_app.setEnabled(true);
                     lv_app.getBackground().setAlpha(255);
+                    mIsLink=true;
+                    new Thread(runable).start();
                 } else {
                     lv_app.setEnabled(false);
                     lv_app.getBackground().setAlpha(100);
+                    mIsLink=false;
+                    new Thread(runable).start();
                 }
             }
         });
@@ -265,12 +273,19 @@ public class LinkAppActivity extends AppCompatActivity {
                     isSelected.put(position, cu);
                     ShowAppListAdapter.this.notifyDataSetChanged();
                     beSelectedData.clear();
-                    if(cu) beSelectedData.add(appList.get(position));
+                    if(cu){
+                        beSelectedData.add(appList.get(position));
+                    }
                     GestureLinked gestureLink=dbHandler.getGestureLink(gestureName);
                     if(null!=gestureLink){
                         gestureLink.setGestureName(gestureName);
-                        gestureLink.setAppName((String) name);
-                        gestureLink.setPackageName((String) packName);
+                        if(cu) {
+                            gestureLink.setAppName((String) name);
+                            gestureLink.setPackageName((String) packName);
+                        }else{
+                            gestureLink.setAppName("");
+                            gestureLink.setPackageName("");
+                        }
                         gestureLink.setType(2);
                         dbHandler.updateGestureLink(gestureLink);
                     }else{
@@ -284,6 +299,11 @@ public class LinkAppActivity extends AppCompatActivity {
                 }
             });
             holder.lv_appchecked.setChecked(isSelected.get(position));
+            if(mIsLink){
+                holder.lv_appchecked.setEnabled(true);
+            }else{
+                holder.lv_appchecked.setEnabled(false);
+            }
             return convertView;
         }
 

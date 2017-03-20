@@ -207,7 +207,13 @@ public class GestureListActivity extends ListActivity{
         Intent intent=new Intent(this,LinkAppActivity.class);
         Bundle mBundle = new Bundle();
         mBundle.putParcelable("selectedObject", namedGesture);
-        mBundle.putBoolean("isLink",true);
+        GestureLinked gestureLinked = dbHandler.getGestureLink(namedGesture.getName());
+        if(null!=gestureLinked&&!"".equals(gestureLinked.getPackageName())){
+            mBundle.putBoolean("isLink",true);
+        }else{
+            mBundle.putBoolean("isLink",false);
+        }
+
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//刷新
         intent.putExtras(mBundle);
         startActivity(intent);
@@ -450,7 +456,7 @@ public class GestureListActivity extends ListActivity{
             GestureLinked gestureLinked = dbHandler.getGestureLink(namedGesture.getName());
             TextView textView=(TextView)convertView;
             textView.setTag(namedGesture);
-            if(null!=gestureLinked) {
+            if(null!=gestureLinked&&!"".equals(gestureLinked.getPackageName())) {
                 textView.setText(namedGesture.getName()+" --- "+ Html.fromHtml("<font size='8'>"+gestureLinked.getAppName()+"</font>"));
             }else{
                 textView.setText(namedGesture.getName());
